@@ -31,3 +31,47 @@ def duplikaty(n: List[Int]): List[Int] = {
 def dod_zadanie_02: Unit = {
     println(duplikaty(List(5, 1, 2, 2, 3, 1, 1,1, 5,5)))
 }
+
+def silnia(n: Int): Int = {
+    @tailrec
+    def helper(n: Int, acc: Int): Int = {
+        if n == 1 then acc
+        else helper(n-1, (acc * n))
+    }
+    helper(n,1)
+}
+
+@main
+def domowe_zadanie_01(n: Int): Unit = {
+    println(silnia(n))
+}
+
+def parzyste(n: List[Int]): Boolean = {
+    @tailrec
+    def helper(n: List[Int], acc: Boolean): Boolean = {
+        if n == Nil then acc
+        else if n.head % 2 == 0 then helper(n.tail, true)
+        else false
+    }
+    helper(n, false)
+}
+
+@main
+def domowe_zadanie_02: Unit = {
+    println(parzyste(List(1,2,3,4,5)))
+}
+
+def potegi(n: Int, m: Int): List[Int] = {
+    @tailrec
+    def helper(n: Int, m: Int, acc: List[Int]): List[Int] = {
+        if m == 0 then return acc.reverse
+        else if acc == Nil then helper(n, m-1, n :: acc)
+        else helper(n, m-1, (acc.head * n) :: acc)
+    }
+    helper(n, m, Nil)
+}
+
+@main
+def domowe_zadanie_03(n: Int, m: Int): Unit = {
+    println(potegi(n,m))
+}
