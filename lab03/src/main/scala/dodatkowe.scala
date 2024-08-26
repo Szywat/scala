@@ -75,3 +75,29 @@ def potegi(n: Int, m: Int): List[Int] = {
 def domowe_zadanie_03(n: Int, m: Int): Unit = {
     println(potegi(n,m))
 }
+
+def tasuj(l1: List[Int], l2: List[Int]): List[Int] = {
+    @tailrec
+        def helper01(l1: List[Int], l2: List[Int], acc: List[Int]): List[Int] = { // sortowanie
+            if l1 == Nil && l2 == Nil then helper02(acc, Nil) // usuwanie duplikatów
+            else if l1 == Nil then helper01(l1, l2, acc.concat(l2))
+            else if l2 == Nil then helper01(l1, l2, acc.concat(l1))
+            else if l1.head > l2.head then helper01(l1, l2.tail, l2.head :: acc)
+            else if l2.head > l1.head then helper01(l1.tail, l2, l1.head :: acc)
+            else helper01(l1.tail, l2.tail, l1.head :: acc)
+        }
+        def helper02(acc: List[Int], prev: List[Int]): List[Int] = {
+            if acc == Nil then prev
+            else if prev == Nil then helper02(acc.tail, acc.head :: prev)
+            else if acc.head != prev.head then helper02(acc.tail, acc.head :: prev)
+            else helper02(acc.tail, prev)
+    }
+    helper01(l1,l2, Nil)
+}
+
+@main
+def domowe_zadanie_04: Unit = {
+    val lista1 = List(2, 4, 3, 5)
+    val lista2 = List(1, 2, 2, 3, 1, 5)
+    println(tasuj(lista1, lista2))
+}
